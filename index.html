@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tripco Travel</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #f8f9fa;
+    }
+
+    .hero-bg {
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      border-radius: 32px;
+      position: relative;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 32px auto 0 auto;
+      max-width: 1100px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    .hero-content {
+      color: #fff;
+      text-align: center;
+      z-index: 2;
+      position: relative;
+      padding: 48px 24px 0 24px;
+    }
+
+    .hero-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+      animation: fadeInDown 1s;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-bottom: 32px;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+      animation: fadeInUp 1.2s;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .airplane {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      z-index: 3;
+      animation: planeMove 4s infinite alternate;
+    }
+
+    .airplane.left {
+      top: 32px;
+      left: 48px;
+      transform: rotate(-20deg);
+      animation-delay: 0.5s;
+    }
+
+    .airplane.right {
+      bottom: 32px;
+      right: 48px;
+      transform: rotate(20deg);
+      animation-delay: 1.2s;
+    }
+
+    @keyframes planeMove {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        transform: translateY(-20px) scale(1.1);
+      }
+    }
+
+    .dotted-path {
+      position: absolute;
+      width: 220px;
+      height: 80px;
+      pointer-events: none;
+
+      .hero-bg,
+      .search-card {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      z-index: 2;
+    }
+
+    .dotted-path.left {
+      top: 16px;
+
+      .hero-bg,
+      .search-card {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+
+      left: 0;
+    }
+
+    .dotted-path.right {
+      bottom: 16px;
+      right: 0;
+      transform: scaleX(-1);
+    }
+
+    .search-card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+      padding: 24px 16px;
+      max-width: 900px;
+      margin: -60px auto 0 auto;
+      position: relative;
+      z-index: 10;
+      animation: fadeInUp 1.5s;
+    }
+
+    .nav-pills .nav-link.active {
+      background-color: #00bcd4;
+      color: #fff;
+    }
+
+    .form-control,
+    .form-select {
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .hero-bg {
+        min-height: 320px;
+      }
+
+      .search-card {
+        padding: 16px 8px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-bg {
+        border-radius: 0;
+      }
+
+      .search-card {
+        margin-top: -40px;
+      }
+    }
+
+    /* Popular Places styles */
+    .popular-section {
+      max-width: 1100px;
+      margin: 48px auto;
+      padding: 0 12px;
+    }
+
+    .popular-header .lead {
+      color: #6c757d;
+    }
+
+    .place-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(14, 30, 37, 0.06);
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+
+    .place-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 40px rgba(14, 30, 37, 0.12);
+    }
+
+    .place-card .img-wrap {
+      position: relative;
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+      display: block;
+    }
+
+    .place-card .badge-discount {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #e6f7fb;
+      color: #007b8f;
+      padding: 6px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: .8rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .place-card .card-body {
+      padding: 14px 12px 18px 12px;
+    }
+
+    .place-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .place-loc {
+      color: #6c757d;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 576px) {
+      .place-card .img-wrap {
+        height: 140px;
+      }
+
+      .popular-section {
+        padding: 0 8px;
+      }
+    }
+  </style>
+  <style>
+    /* Destination cards styles */
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .top-2 {
+      top: 0.5rem;
+    }
+
+    .end-2 {
+      right: 0.5rem;
+    }
+
+    .filter-nav .btn {
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .filter-nav .btn-light {
+      background: #f8f9fa;
+    }
+
+    .filter-nav .btn-light:hover {
+      background: #e9ecef;
+    }
+
+    @media (max-width: 768px) {
+      .filter-nav {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0.5rem;
+      }
+
+      .filter-nav::-webkit-scrollbar {
+        height: 4px;
+      }
+
+      .filter-nav::-webkit-scrollbar-thumb {
+        background: #dee2e6;
+        border-radius: 4px;
+      }
+    }
+
+    /* Adventure Section Styles */
+    .adventure-section {
+      background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+    }
+
+    .destination-slider {
+      position: relative;
+      padding: 0 40px;
+    }
+
+    .destination-card {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .destination-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .card-image {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .card-image img {
+      transition: transform 0.5s ease;
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .destination-card:hover .card-image img {
+      transform: scale(1.1);
+    }
+
+    .verified-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px;
+      border-radius: 50%;
+      z-index: 2;
+      transition: transform 0.3s ease;
+    }
+
+    .destination-card:hover .verified-badge {
+      transform: scale(1.1) rotate(8deg);
+    }
+
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 3;
+    }
+
+    .nav-arrow:hover {
+      background: #00bcd4;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .nav-arrow.prev {
+      left: 0;
+    }
+
+    .nav-arrow.next {
+      right: 0;
+    }
+
+    @media (max-width: 768px) {
+      .destination-slider {
+        padding: 0 20px;
+      }
+
+      .card-image img {
+        height: 220px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .card-image img {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-info" href="#">Tripco</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Ticket</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Explore</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Activity</a></li>
+        </ul>
+        <div class="d-flex gap-2">
+          <a href="#" class="btn btn-link text-secondary">Sign In</a>
+          <a href="#" class="btn btn-info text-white px-4">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="px-2">
+    <section class="hero-bg">
+      <!-- Airplane SVGs and dotted paths -->
+      <svg class="dotted-path left" viewBox="0 0 220 80" fill="none">
+        <path d="M10,70 Q60,10 210,30" stroke="#fff" stroke-width="2" stroke-dasharray="6,6" />
+      </svg>
+      <svg class="dotted-path right" viewBox="0 0 220 80" fill="none">
+        <path d="M10,70 Q60,10 210,30" stroke="#fff" stroke-width="2" stroke-dasharray="6,6" />
+      </svg>
+      <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Airplane" class="airplane left">
+      <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Airplane" class="airplane right">
+      <div class="hero-content">
+        <h1 class="hero-title">Explore the whole world<br>and enjoy its beauty</h1>
+        <p class="hero-subtitle">Find and write about your experiences around the world.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Search Card -->
+  <div class="px-5">
+    <div class="search-card shadow">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="hostelry-tab" data-bs-toggle="pill" data-bs-target="#hostelry"
+            type="button" role="tab">Hostelry</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="flights-tab" data-bs-toggle="pill" data-bs-target="#flights" type="button"
+            role="tab">Flights</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="bus-tab" data-bs-toggle="pill" data-bs-target="#bus" type="button" role="tab">Bus
+            &
+            Shuttle</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="cars-tab" data-bs-toggle="pill" data-bs-target="#cars" type="button"
+            role="tab">Cars</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="hostelry" role="tabpanel">
+          <form class="row g-2 align-items-end">
+            <div class="col-md-3 col-12">
+              <label class="form-label">Destination</label>
+              <input type="text" class="form-control" placeholder="Bali, Indonesia">
+            </div>
+            <div class="col-md-2 col-6">
+              <label class="form-label">Check-in</label>
+              <input type="date" class="form-control" value="2022-12-02">
+            </div>
+            <div class="col-md-2 col-6">
+              <label class="form-label">Check-out</label>
+              <input type="date" class="form-control" value="2022-12-03">
+            </div>
+            <div class="col-md-3 col-12">
+              <label class="form-label">Room & Guest</label>
+              <select class="form-select">
+                <option>1 Room, 2 Guest</option>
+                <option>2 Room, 4 Guest</option>
+                <option>3 Room, 6 Guest</option>
+              </select>
+            </div>
+            <div class="col-md-2 col-12 d-grid">
+              <button type="submit" class="btn btn-info text-white">Search</button>
+            </div>
+          </form>
+        </div>
+        <!-- Other tabs can be filled similarly -->
+        <div class="tab-pane fade" id="flights" role="tabpanel">
+          <form class="row g-2 align-items-end">
+            <div class="col-md-4 col-12">
+              <label class="form-label">From</label>
+              <input type="text" class="form-control" placeholder="City or Airport">
+            </div>
+            <div class="col-md-4 col-12">
+              <label class="form-label">To</label>
+              <input type="text" class="form-control" placeholder="Destination">
+            </div>
+            <div class="col-md-2 col-6">
+              <label class="form-label">Departure</label>
+              <input type="date" class="form-control">
+            </div>
+            <div class="col-md-2 col-12 d-grid">
+              <button type="submit" class="btn btn-info text-white">Search</button>
+            </div>
+          </form>
+        </div>
+        <div class="tab-pane fade" id="bus" role="tabpanel">
+          <form class="row g-2 align-items-end">
+            <div class="col-md-5 col-12">
+              <label class="form-label">From</label>
+              <input type="text" class="form-control" placeholder="City or Station">
+            </div>
+            <div class="col-md-5 col-12">
+              <label class="form-label">To</label>
+              <input type="text" class="form-control" placeholder="Destination">
+            </div>
+            <div class="col-md-2 col-12 d-grid">
+              <button type="submit" class="btn btn-info text-white">Search</button>
+            </div>
+          </form>
+        </div>
+        <div class="tab-pane fade" id="cars" role="tabpanel">
+          <form class="row g-2 align-items-end">
+            <div class="col-md-6 col-12">
+              <label class="form-label">Pick-up Location</label>
+              <input type="text" class="form-control" placeholder="City or Airport">
+            </div>
+            <div class="col-md-4 col-6">
+              <label class="form-label">Pick-up Date</label>
+              <input type="date" class="form-control">
+            </div>
+            <div class="col-md-2 col-12 d-grid">
+              <button type="submit" class="btn btn-info text-white">Search</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end mt-2">
+        <small class="text-secondary">Last Searching &rarr;</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popular Place Section -->
+  <section class="popular-section px-4">
+    <div class="row align-items-center mb-4">
+      <div class="col-md-6">
+        <h2 class="mb-1">Popular Place</h2>
+        <p class="lead">Let's enjoy this heaven on earth</p>
+      </div>
+      <div class="col-md-6 text-md-end d-none d-md-block">
+        <p class="text-muted">Many places are very famous, beautiful, clean, and will give a very deep impression to
+          visitors and will make them come back.</p>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-3 col-md-6 col-12">
+        <div class="place-card">
+          <div class="img-wrap"
+            style="background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60')">
+            <div class="badge-discount">20% OFF</div>
+          </div>
+          <div class="card-body">
+            <div class="place-title">SC, Mindanou</div>
+            <div class="place-loc"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#00bcd4"
+                class="bi bi-geo-alt" viewBox="0 0 16 16">
+                <path
+                  d="M12.166 8.94C12.941 7.79 13.5 6.537 13.5 5.25 13.5 2.35 11.15 0 8.25 0S3 2.35 3 5.25c0 1.287.559 2.54 1.334 3.69C6.02 10.875 8.25 14 8.25 14s2.23-3.125 3.916-5.06zM8.25 7.5A2.25 2.25 0 1 1 8.25 3a2.25 2.25 0 0 1 0 4.5z" />
+              </svg> Mindanou, Philippines</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-12">
+        <div class="place-card">
+          <div class="img-wrap" style="background-image: url('https://picsum.photos/seed/disney/800/600')">
+            <div class="badge-discount">20% OFF</div>
+          </div>
+          <div class="card-body">
+            <div class="place-title">Disneyland Tokyo</div>
+            <div class="place-loc"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#00bcd4"
+                class="bi bi-geo-alt" viewBox="0 0 16 16">
+                <path
+                  d="M12.166 8.94C12.941 7.79 13.5 6.537 13.5 5.25 13.5 2.35 11.15 0 8.25 0S3 2.35 3 5.25c0 1.287.559 2.54 1.334 3.69C6.02 10.875 8.25 14 8.25 14s2.23-3.125 3.916-5.06zM8.25 7.5A2.25 2.25 0 1 1 8.25 3a2.25 2.25 0 0 1 0 4.5z" />
+              </svg> Tokyo, Japan</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-12">
+        <div class="place-card">
+          <div class="img-wrap"
+            style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=60')">
+            <div class="badge-discount">20% OFF</div>
+          </div>
+          <div class="card-body">
+            <div class="place-title">Tousand Island</div>
+            <div class="place-loc"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#00bcd4"
+                class="bi bi-geo-alt" viewBox="0 0 16 16">
+                <path
+                  d="M12.166 8.94C12.941 7.79 13.5 6.537 13.5 5.25 13.5 2.35 11.15 0 8.25 0S3 2.35 3 5.25c0 1.287.559 2.54 1.334 3.69C6.02 10.875 8.25 14 8.25 14s2.23-3.125 3.916-5.06zM8.25 7.5A2.25 2.25 0 1 1 8.25 3a2.25 2.25 0 0 1 0 4.5z" />
+              </svg> Java, Indonesia</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-12">
+        <div class="place-card">
+          <div class="img-wrap" style="background-image: url('https://picsum.photos/seed/venice/800/600')">
+            <div class="badge-discount">20% OFF</div>
+          </div>
+          <div class="card-body">
+            <div class="place-title">Basilika Santo</div>
+            <div class="place-loc"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#00bcd4"
+                class="bi bi-geo-alt" viewBox="0 0 16 16">
+                <path
+                  d="M12.166 8.94C12.941 7.79 13.5 6.537 13.5 5.25 13.5 2.35 11.15 0 8.25 0S3 2.35 3 5.25c0 1.287.559 2.54 1.334 3.69C6.02 10.875 8.25 14 8.25 14s2.23-3.125 3.916-5.06zM8.25 7.5A2.25 2.25 0 1 1 8.25 3a2.25 2.25 0 0 1 0 4.5z" />
+              </svg> Venice, Italy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Third Section - Features -->
+  <section class="container px-4 my-5">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold mb-2">Travel to make sweet memories</h1>
+        <p class="text-muted mb-4">Find trips that fit a flexible lifestyle</p>
+
+        <div class="features mt-4">
+          <div class="feature d-flex gap-3 mb-4">
+            <div class="feature-number rounded-3 d-flex align-items-center justify-content-center"
+              style="width: 45px; height: 45px; background: #e6f7fb; color: #00bcd4; font-weight: bold;">
+              01
+            </div>
+            <div>
+              <h5 class="mb-2">Find trips that fit your freedom</h5>
+              <p class="text-muted">Travelling offers freedom and flexibility, solitude and spontaneity, and privacy and
+                purpose.</p>
+            </div>
+          </div>
+
+          <div class="feature d-flex gap-3 mb-4">
+            <div class="feature-number rounded-3 d-flex align-items-center justify-content-center"
+              style="width: 45px; height: 45px; background: #e7e7ff; color: #6366f1; font-weight: bold;">
+              02
+            </div>
+            <div>
+              <h5 class="mb-2">Get back to nature by travel</h5>
+              <p class="text-muted">The world is a playground and you can finally explore Mother Nature's incredible
+                canvas.</p>
+            </div>
+          </div>
+
+          <div class="feature d-flex gap-3 mb-4">
+            <div class="feature-number rounded-3 d-flex align-items-center justify-content-center"
+              style="width: 45px; height: 45px; background: #e7f7ea; color: #22c55e; font-weight: bold;">
+              03
+            </div>
+            <div>
+              <h5 class="mb-2">Reignite those travel tastebuds</h5>
+              <p class="text-muted">There are infinite reasons to love travel, one of them being the food, glorious
+                food.</p>
+            </div>
+          </div>
+
+          <button class="btn btn-info text-white px-4 py-2 mt-3">Start your explore</button>
+        </div>
+      </div>
+
+      <div class="col-lg-6 position-relative mt-3">
+        <div class="rounded-4 overflow-hidden shadow-lg" style="max-height: 600px;">
+          <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80"
+            class="img-fluid w-100 h-100 object-fit-cover" alt="Mountain landscape">
+        </div>
+
+        <!-- User Profile Cards -->
+        <div class="position-absolute bg-white rounded-3 shadow p-2 d-flex align-items-center gap-2"
+          style="top: 20px; left: 20px; max-width: 200px;">
+          <img src="https://i.pravatar.cc/40?img=1" class="rounded-circle" alt="Kamelia Diana">
+          <div>
+            <div class="fw-bold">Kamelia Diana</div>
+            <div class="text-warning">★ 4.9</div>
+          </div>
+        </div>
+
+        <div class="position-absolute bg-white rounded-3 shadow p-2 d-flex align-items-center gap-2"
+          style="top: 50%; right: 20px; transform: translateY(-50%); max-width: 200px;">
+          <img src="https://i.pravatar.cc/40?img=2" class="rounded-circle" alt="Haikel Adam">
+          <div>
+            <div class="fw-bold">Haikel Adam</div>
+            <div class="text-warning">★ 4.9</div>
+          </div>
+        </div>
+
+        <div class="position-absolute bg-white rounded-3 shadow p-2 d-flex align-items-center gap-2"
+          style="bottom: 20px; left: 20px; max-width: 200px;">
+          <img src="https://i.pravatar.cc/40?img=3" class="rounded-circle" alt="Joe Zefrano">
+          <div>
+            <div class="fw-bold">Joe Zefrano</div>
+            <div class="text-warning">★ 4.9</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fourth Section - Explore More -->
+  <section class="container px-4 my-5">
+    <div class="row mb-4">
+      <div class="col-lg-6">
+        <h2 class="mb-2">Explore more</h2>
+        <p class="text-muted">Let's go on an adventure</p>
+      </div>
+      <div class="col-lg-6 text-lg-end">
+        <p class="text-muted">All-inclusive vacations and flights to the Caribbean, Indonesian, and more than 1.200
+          destinations worldwide. Let's explore now.</p>
+      </div>
+    </div>
+
+    <!-- Filter Navigation -->
+    <div class="filter-nav mb-4 d-flex gap-2 flex-wrap">
+      <button class="btn btn-dark px-4">Popular destinat ion</button>
+      <button class="btn btn-light px-4">Islands</button>
+      <button class="btn btn-light px-4">Surfing</button>
+      <button class="btn btn-light px-4">Nation parks</button>
+      <button class="btn btn-light px-4">Lake</button>
+      <button class="btn btn-light px-4">Beach</button>
+      <button class="btn btn-light px-4">Camp</button>
+      <button class="btn btn-light border-0 ms-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders"
+          viewBox="0 0 16 16">
+          <path
+            d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z" />
+        </svg>
+        Filters
+      </button>
+    </div>
+
+    <!-- Destination Cards Grid -->
+    <div class="row g-4">
+      <!-- Amalfi Coast -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card border-0 rounded-4 shadow-sm h-100">
+          <div class="position-relative">
+            <img src="https://images.unsplash.com/photo-1533104816931-20fa691ff6ca" class="card-img-top rounded-top-4"
+              alt="Amalfi Coast">
+            <div class="position-absolute top-2 end-2 bg-white rounded-pill px-2 py-1">
+              <small class="text-warning">★</small>
+              <small>4.9</small>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title mb-0">Amalfi Coast</h5>
+              <div class="text-info">$148<small class="text-muted">/Per</small></div>
+            </div>
+            <p class="card-text">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#00bcd4" class="bi bi-geo-alt"
+                viewBox="0 0 16 16">
+                <path
+                  d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+              </svg>
+              Amalfi, Italy
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Taj Mahal -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card border-0 rounded-4 shadow-sm h-100">
+          <div class="position-relative">
+            <img src="https://images.unsplash.com/photo-1548013146-72479768bada" class="card-img-top rounded-top-4"
+              alt="Taj Mahal">
+            <div class="position-absolute top-2 end-2 bg-white rounded-pill px-2 py-1">
+              <small class="text-warning">★</small>
+              <small>4.9</small>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title mb-0">Taj Mahal</h5>
+              <div class="text-info">$140<small class="text-muted">/Per</small></div>
+            </div>
+            <p class="card-text">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#00bcd4" class="bi bi-geo-alt"
+                viewBox="0 0 16 16">
+                <path
+                  d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+              </svg>
+              Agra, India
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tanah Gajah -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card border-0 rounded-4 shadow-sm h-100">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/bali/800/600" class="card-img-top rounded-top-4" alt="Tanah Gajah">
+            <div class="position-absolute top-2 end-2 bg-white rounded-pill px-2 py-1">
+              <small class="text-warning">★</small>
+              <small>4.9</small>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title mb-0">Tanah Gajah</h5>
+              <div class="text-info">$148<small class="text-muted">/Per</small></div>
+            </div>
+            <p class="card-text">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#00bcd4" class="bi bi-geo-alt"
+                viewBox="0 0 16 16">
+                <path
+                  d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+              </svg>
+              Bali, Indonesia
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Osaka Castle -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card border-0 rounded-4 shadow-sm h-100">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/osaka/800/600" class="card-img-top rounded-top-4" alt="Osaka Castle">
+            <div class="position-absolute top-2 end-2 bg-white rounded-pill px-2 py-1">
+              <small class="text-warning">★</small>
+              <small>4.9</small>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title mb-0">Osaka Castle</h5>
+              <div class="text-info">$156<small class="text-muted">/Per</small></div>
+            </div>
+            <p class="card-text">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#00bcd4" class="bi bi-geo-alt"
+                viewBox="0 0 16 16">
+                <path
+                  d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+              </svg>
+              Osaka, Japan
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cape Reinga -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card border-0 rounded-4 shadow-sm h-100">
+          <div class="position-relative">
+            <img src="https://picsum.photos/seed/amalfi/800/600" class="card-img-top rounded-top-4" alt="Cape Reinga">
+            <div class="position-absolute top-2 end-2 bg-white rounded-pill px-2 py-1">
+              <small class="text-warning">★</small>
+              <small>4.9</small>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title mb-0">Cape Reinga</h5>
+              <div class="text-info">$164<small class="text-muted">/Per</small></div>
+            </div>
+            <p class="card-text">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#00bcd4" class="bi bi-geo-alt"
+                viewBox="0 0 16 16">
+                <path
+                  d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+              </svg>
+              Northland, New Zealand
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sorrento -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card border-0 rounded-4 shadow-sm h-100">
+          <div class="position-relative">
+            <img src="https://images.unsplash.com/photo-1633321088355-d0f81134ca3b" class="card-img-top rounded-top-4"
+              alt="Sorrento">
+            <div class="position-absolute top-2 end-2 bg-white rounded-pill px-2 py-1">
+              <small class="text-warning">★</small>
+              <small>4.9</small>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title mb-0">Sorrento, Italy</h5>
+              <div class="text-info">$172<small class="text-muted">/Per</small></div>
+            </div>
+            <p class="card-text">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#00bcd4" class="bi bi-geo-alt"
+                viewBox="0 0 16 16">
+                <path
+                  d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+              </svg>
+              Amalfi, Italy
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-outline-secondary px-4">Show more</button>
+    </div>
+  </section>
+
+  <!-- Fifth Section - Testimonials -->
+  <section class="container px-4 py-5 my-5">
+    <div class="text-center mb-5">
+      <h2 class="display-5 fw-bold mb-3">What our travelers say</h2>
+      <p class="text-muted mx-auto" style="max-width: 600px;">Real stories from real travelers who have experienced the
+        magic of exploration with us.</p>
+    </div>
+
+    <div class="row g-4 testimonials-container">
+      <!-- Testimonial 1 -->
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
+        <div class="testimonial-card bg-white p-4 rounded-4 shadow-sm h-100">
+          <div class="d-flex gap-3 align-items-center mb-4">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="rounded-circle" width="60" height="60"
+              alt="Sarah Mitchell">
+            <div>
+              <h5 class="mb-1">Sarah Mitchell</h5>
+              <div class="text-warning">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </div>
+            </div>
+          </div>
+          <p class="mb-4">"The attention to detail in planning our trip was exceptional. Every destination was carefully
+            chosen, and the local experiences were unforgettable. Highly recommend!"</p>
+          <div class="d-flex align-items-center text-muted">
+            <i class="bi bi-geo-alt me-2"></i>
+            <span>Explored Bali, Indonesia</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="testimonial-card bg-white p-4 rounded-4 shadow-sm h-100">
+          <div class="d-flex gap-3 align-items-center mb-4">
+            <img src="https://randomuser.me/api/portraits/men/45.jpg" class="rounded-circle" width="60" height="60"
+              alt="James Cooper">
+            <div>
+              <h5 class="mb-1">James Cooper</h5>
+              <div class="text-warning">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </div>
+            </div>
+          </div>
+          <p class="mb-4">"What an amazing journey! The team made sure everything was perfect, from accommodation to
+            activities. The memories we made will last a lifetime."</p>
+          <div class="d-flex align-items-center text-muted">
+            <i class="bi bi-geo-alt me-2"></i>
+            <span>Visited Amalfi Coast, Italy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="testimonial-card bg-white p-4 rounded-4 shadow-sm h-100">
+          <div class="d-flex gap-3 align-items-center mb-4">
+            <img src="https://randomuser.me/api/portraits/women/46.jpg" class="rounded-circle" width="60" height="60"
+              alt="Emily Chang">
+            <div>
+              <h5 class="mb-1">Emily Chang</h5>
+              <div class="text-warning">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </div>
+            </div>
+          </div>
+          <p class="mb-4">"As a solo traveler, safety and experience quality were my top priorities. This service
+            exceeded all my expectations. Can't wait for my next adventure!"</p>
+          <div class="d-flex align-items-center text-muted">
+            <i class="bi bi-geo-alt me-2"></i>
+            <span>Toured Japan</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="#" class="btn btn-outline-info px-4 py-2">Read more stories</a>
+    </div>
+  </section>
+
+  <!-- Sixth Section - Adventure Destinations -->
+  <section class="container-fluid adventure-section px-4 py-5 my-5">
+    <div class="text-center mb-5">
+      <h2 class="display-5 fw-bold mb-2">Let's go on an adventure</h2>
+      <p class="text-muted mx-auto" style="max-width: 600px;">Find and book a great experience</p>
+    </div>
+
+    <div class="destination-slider position-relative">
+      <div class="row g-4 destinations-wrapper">
+        <!-- Paris -->
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="0">
+          <div class="destination-card h-100">
+            <div class="card-image">
+              <div class="verified-badge">
+                <i class="bi bi-patch-check-fill text-info"></i>
+              </div>
+              <img src="https://picsum.photos/seed/paris/800/600" alt="Paris" class="img-fluid rounded-4">
+            </div>
+            <div class="card-content text-center mt-3">
+              <h4 class="mb-0">PARIS</h4>
+              <div class="rating text-warning mt-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="text-muted ms-1">(4.5)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- New York -->
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="destination-card h-100">
+            <div class="card-image">
+              <div class="verified-badge">
+                <i class="bi bi-patch-check-fill text-info"></i>
+              </div>
+              <img src="https://picsum.photos/seed/newyork/800/600" alt="New York" class="img-fluid rounded-4">
+            </div>
+            <div class="card-content text-center mt-3">
+              <h4 class="mb-0">NEW YORK</h4>
+              <div class="rating text-warning mt-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="text-muted ms-1">(5.0)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seoul -->
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="destination-card h-100">
+            <div class="card-image">
+              <div class="verified-badge">
+                <i class="bi bi-patch-check-fill text-info"></i>
+              </div>
+              <img src="https://picsum.photos/seed/seoul/800/600" alt="Seoul" class="img-fluid rounded-4">
+            </div>
+            <div class="card-content text-center mt-3">
+              <h4 class="mb-0">SEOUL</h4>
+              <div class="rating text-warning mt-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                <span class="text-muted ms-1">(4.0)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bali -->
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="destination-card h-100">
+            <div class="card-image">
+              <div class="verified-badge">
+                <i class="bi bi-patch-check-fill text-info"></i>
+              </div>
+              <img src="https://picsum.photos/seed/bali/800/600" alt="Bali" class="img-fluid rounded-4">
+            </div>
+            <div class="card-content text-center mt-3">
+              <h4 class="mb-0">BALI</h4>
+              <div class="rating text-warning mt-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="text-muted ms-1">(4.5)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button class="nav-arrow prev" onclick="scrollDestinations(-1)">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button class="nav-arrow next" onclick="scrollDestinations(1)">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- Seventh Section - Book Tickets Video -->
+  <section class="container py-5 my-5" data-aos="fade-up">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+      <h2 class="fw-bold mb-0">Book tickets and go now!</h2>
+      <a href="#" class="btn btn-info text-white px-4 py-2">Book now</a>
+    </div>
+    <div class="video-wrapper position-relative rounded-4 overflow-hidden shadow" style="background: #e0f7fa;">
+      <video class="w-100" style="max-height: 400px; object-fit: cover; border-radius: 24px;"
+        poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" controls>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
+  <style>
+    .video-wrapper {
+      transition: box-shadow 0.4s cubic-bezier(.4, 0, .2, 1), transform 0.4s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .video-wrapper:hover {
+      box-shadow: 0 8px 32px rgba(0, 188, 212, 0.18);
+      transform: scale(1.02);
+    }
+
+    .video-wrapper video {
+      transition: filter 0.4s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .video-wrapper:hover video {
+      filter: brightness(1.08) saturate(1.2);
+    }
+  </style>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
+    });
+
+    function scrollDestinations(direction) {
+      const wrapper = document.querySelector('.destinations-wrapper');
+      const scrollAmount = wrapper.offsetWidth * 0.5 * direction;
+      wrapper.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+
+  <!-- Footer Section -->
+  <footer class="bg-dark text-white py-5 mt-5">
+    <div class="container">
+      <div class="row g-4">
+        <!-- Company Info -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-up">
+          <h4 class="text-info fw-bold mb-4">Tripco</h4>
+          <p class="mb-4">We want to help you find amazing places and incredible experiences. Let's embark on a journey
+            together.</p>
+          <div class="social-links d-flex gap-3">
+            <a href="#" class="text-white hover-info" data-aos="fade-up" data-aos-delay="100">
+              <i class="bi bi-facebook fs-5"></i>
+            </a>
+            <a href="#" class="text-white hover-info" data-aos="fade-up" data-aos-delay="200">
+              <i class="bi bi-twitter fs-5"></i>
+            </a>
+            <a href="#" class="text-white hover-info" data-aos="fade-up" data-aos-delay="300">
+              <i class="bi bi-instagram fs-5"></i>
+            </a>
+            <a href="#" class="text-white hover-info" data-aos="fade-up" data-aos-delay="400">
+              <i class="bi bi-linkedin fs-5"></i>
+            </a>
+          </div>
+        </div>
+        <!-- Quick Links -->
+        <div class="col-lg-2 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <h5 class="mb-4">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-info">Home</a></li>
+            <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-info">About Us</a></li>
+            <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-info">Destinations</a></li>
+            <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-info">Tours</a></li>
+            <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-info">Blog</a></li>
+          </ul>
+        </div>
+        <!-- Support -->
+        <div class="col-lg-2 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <h5 class="mb-4">Support</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-info">Contact Us</a></li>
+            <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-info">FAQ</a></li>
+            <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-info">Privacy Policy</a></li>
+            <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-info">Terms of Service</a></li>
+            <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-info">Support Center</a></li>
+          </ul>
+        </div>
+        <!-- Newsletter -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <h5 class="mb-4">Newsletter</h5>
+          <p class="mb-4">Subscribe to our newsletter for travel tips and exclusive offers.</p>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Enter your email"
+              style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: white;">
+            <button class="btn btn-info text-white" type="button">Subscribe</button>
+          </div>
+          <small class="text-muted">By subscribing, you agree to our Privacy Policy.</small>
+        </div>
+      </div>
+      <hr class="my-5" style="border-color: rgba(255,255,255,0.1);">
+      <!-- Bottom Footer -->
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+          <p class="mb-0">&copy; 2024 Tripco. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="me-2"
+            style="height:25px;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="MasterCard"
+            class="me-2" style="height:25px;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="me-2"
+            style="height:25px; background:white; border-radius:4px;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo_%282018%29.svg" alt="Amex"
+            style="height:25px; background:white; border-radius:4px;">
+        </div>
+      </div>
+    </div>
+    <style>
+      .hover-info {
+        transition: color 0.3s ease;
+      }
+
+      .hover-info:hover {
+        color: #00bcd4 !important;
+      }
+
+      footer .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      footer .form-control:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #00bcd4;
+        box-shadow: 0 0 0 0.25rem rgba(0, 188, 212, 0.25);
+        color: white;
+      }
+
+      footer .social-links a {
+        transition: transform 0.3s ease;
+      }
+
+      footer .social-links a:hover {
+        transform: translateY(-3px);
+      }
+
+      @media (max-width: 768px) {
+        footer h5 {
+          margin-top: 1rem;
+        }
+      }
+    </style>
+  </footer>
+</body>
+
+</html>
