@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up — Tripco</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="signup.css">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-info" href="index.html">Tripco</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain"
+        aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="signup.html">Sign Up</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="signup-wrapper">
+    <div class="card-signup">
+      <div class="promo">
+        <div>
+          <h3>Join Tripco</h3>
+          <p>Create your account to unlock exclusive travel deals, save your favorite destinations, and get personalized
+            recommendations.</p>
+        </div>
+        <div>
+          <ul class="list-unstyled small-muted">
+            <li class="mb-2"><i class="bi bi-check2-circle text-info me-2"></i>Easy and free registration</li>
+            <li class="mb-2"><i class="bi bi-check2-circle text-info me-2"></i>Access member-only offers</li>
+            <li class="mb-2"><i class="bi bi-check2-circle text-info me-2"></i>Plan trips with friends</li>
+          </ul>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=60"
+            alt="signup travel" class="img-fluid rounded-3" style="max-height:180px;object-fit:cover;">
+        </div>
+      </div>
+      <div class="form-side">
+        <h4 class="mb-3">Create your account</h4>
+        <p class="small-muted mb-3">Sign up with your email or continue with social accounts.</p>
+        <p class="alert alert-danger p-2 text-center text-danger" id="errorMessage" style="display: none;">Please fill
+          in all
+          inputs</p>
+        <p class="alert alert-danger p-2 text-center text-danger" id="errorMessage2" style="display: none;">Invalid Email entered</p>
+        <form id="signupForm" class="mb-3">
+          <div class="mb-1">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" placeholder="Enter your first name" id="firstName">
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" placeholder="Enter your last name" id="lastName">
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Email address</label>
+            <input type="email" class="form-control" placeholder="you@example.com" id="email">
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" placeholder="Create a password" id="password">
+          </div>
+          <div class="mb-1 form-check">
+            <input type="checkbox" class="form-check-input" id="termsCheck">
+            <label class="form-check-label small-muted" for="termsCheck">I agree to the <a href="#"
+                class="text-info">Terms & Privacy</a></label>
+          </div>
+          <div class="d-grid mb-1">
+            <button type="button" class="btn btn-brand text-white py-2 signup-btn" onclick="signUp()">Sign Up</button>
+          </div>
+        </form>
+        <div class="text-center small-muted mb-2">Or continue with</div>
+        <div class="d-flex gap-2 mb-1">
+          <button class="btn btn-outline-secondary w-100 social-btn"><i class="bi bi-google me-2"></i>Google</button>
+          <button class="btn btn-outline-secondary w-100 social-btn"><i
+              class="bi bi-facebook me-2"></i>Facebook</button>
+        </div>
+        <div class="text-center small">Already have an account? <a href="../sigin/signin.html" class="text-info">Sign
+            in</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="signup.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
