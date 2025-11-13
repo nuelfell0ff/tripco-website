@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/styles.css" rel="stylesheet">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <!-- Top navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+      <!-- Offcanvas toggler for small screens -->
+      <button class="btn btn-dark d-md-none me-2" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+        <i class="bi bi-list fs-3"></i>
+      </button>
+
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <i class="bi bi-speedometer2 me-2"></i>
+        AdminDash
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topnav"
+        aria-controls="topnav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="topnav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item me-3">
+            <a class="nav-link" href="#"><i class="bi bi-bell"></i></a>
+          </li>
+          <li class="nav-item me-2">
+            <button id="themeToggle" class="btn btn-outline-light btn-sm d-flex align-items-center" type="button"
+              title="Toggle theme">
+              <i id="themeIcon" class="bi bi-moon"></i>
+            </button>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userMenu" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="https://via.placeholder.com/32" class="rounded-circle me-2" alt="user">
+              <span class="d-none d-sm-inline">Admin</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Offcanvas sidebar (small screens) -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Menu</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+      <nav class="nav flex-column sidebar-nav">
+        <a class="nav-link active" href="index.html"><i class="bi bi-house-door me-2"></i> Dashboard</a>
+        <a class="nav-link" href="users.html"><i class="bi bi-people me-2"></i> Users</a>
+        <a class="nav-link" href="analytics.html"><i class="bi bi-graph-up me-2"></i> Analytics</a>
+        <a class="nav-link" href="settings.html"><i class="bi bi-gear me-2"></i> Settings</a>
+        <a class="nav-link mt-auto" href="help.html"><i class="bi bi-life-preserver me-2"></i> Help & docs</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar for md+ screens -->
+      <nav id="sidebar" class="col-md-3 col-lg-2 d-none d-md-block bg-light sidebar py-3">
+        <div class="position-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html"><i class="bi bi-house-door me-2"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="users.html"><i class="bi bi-people me-2"></i> Users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="analytics.html"><i class="bi bi-graph-up me-2"></i> Analytics</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="settings.html"><i class="bi bi-gear me-2"></i> Settings</a>
+            </li>
+            <li class="nav-item mt-3">
+              <a class="nav-link text-muted small" href="help.html"><i class="bi bi-life-preserver me-2"></i> Help &
+                docs</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Main content -->
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+        <div class="d-flex justify-content-between flex-wrap align-items-center mb-3">
+          <h1 class="h2">Dashboard</h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+              <button class="btn btn-sm btn-outline-secondary">Share</button>
+              <button class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats cards -->
+        <div class="row g-3 mb-4">
+          <div class="col-sm-6 col-lg-3">
+            <div class="card shadow-sm h-100 animate__animated animate__fadeInUp">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="me-3 bg-primary text-white rounded-circle p-2">
+                    <i class="bi bi-people fs-4"></i>
+                  </div>
+                  <div>
+                    <h6 class="mb-0">Users</h6>
+                    <h4 class="mb-0">1,234</h4>
+                    <small class="text-muted">+4.5% since last week</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-3">
+            <div class="card shadow-sm h-100 animate__animated animate__fadeInUp">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="me-3 bg-success text-white rounded-circle p-2">
+                    <i class="bi bi-currency-dollar fs-4"></i>
+                  </div>
+                  <div>
+                    <h6 class="mb-0">Revenue</h6>
+                    <h4 class="mb-0">$12,345</h4>
+                    <small class="text-muted">+2.1% since last month</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-3">
+            <div class="card shadow-sm h-100 animate__animated animate__fadeInUp">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="me-3 bg-warning text-dark rounded-circle p-2">
+                    <i class="bi bi-clock-history fs-4"></i>
+                  </div>
+                  <div>
+                    <h6 class="mb-0">Avg. Time</h6>
+                    <h4 class="mb-0">3m 24s</h4>
+                    <small class="text-muted">-1.4% since yesterday</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-3">
+            <div class="card shadow-sm h-100 animate__animated animate__fadeInUp">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="me-3 bg-info text-white rounded-circle p-2">
+                    <i class="bi bi-bar-chart fs-4"></i>
+                  </div>
+                  <div>
+                    <h6 class="mb-0">Traffic</h6>
+                    <h4 class="mb-0">23,456</h4>
+                    <small class="text-muted">+8.2% since last month</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8 mb-4">
+            <div class="card shadow-sm h-100 animate__animated animate__fadeInUp">
+              <div class="card-body">
+                <h5 class="card-title">Site Traffic</h5>
+                <canvas id="trafficChart" height="120"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mb-4">
+            <div class="card shadow-sm h-100 animate__animated animate__fadeInUp">
+              <div class="card-body">
+                <h5 class="card-title">Recent Activity</h5>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">New user <strong>John Doe</strong> signed up</li>
+                  <li class="list-group-item">Payment of <strong>$29</strong> received</li>
+                  <li class="list-group-item">Server CPU usage at <strong>78%</strong></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+          <div class="card-body animate__animated animate__fadeInUp">
+            <h5 class="card-title">Users table</h5>
+            <div class="table-responsive">
+              <table class="table table-striped table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody class="animate__animated animate__fadeInUp">
+                  <tr>
+                    <td>1</td>
+                    <td>Alice Smith</td>
+                    <td>alice@example.com</td>
+                    <td>Admin</td>
+                    <td><span class="badge bg-success">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Bob Johnson</td>
+                    <td>bob@example.com</td>
+                    <td>Editor</td>
+                    <td><span class="badge bg-secondary">Invited</span></td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Carol White</td>
+                    <td>carol@example.com</td>
+                    <td>Viewer</td>
+                    <td><span class="badge bg-success">Active</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <footer class="text-muted small">&copy; <span id="year"></span> AdminDash — Example dashboard built with
+          Bootstrap</footer>
+      </main>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script>
+    // Set year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Close offcanvas when clicking a sidebar link (mobile)
+    document.querySelectorAll('.offcanvas .nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const offcanvasEl = document.getElementById('offcanvasSidebar');
+        const bsOff = bootstrap.Offcanvas.getInstance(offcanvasEl);
+        if (bsOff) bsOff.hide();
+      });
+    });
+
+    // Highlight active link on click (both sidebars)
+    document.querySelectorAll('#sidebar .nav-link, .sidebar-nav .nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        document.querySelectorAll('#sidebar .nav-link, .sidebar-nav .nav-link').forEach(l => l.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+      });
+    });
+
+    // Chart.js traffic chart animation
+    window.addEventListener('DOMContentLoaded', function () {
+      const ctx = document.getElementById('trafficChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Visits',
+            data: [1200, 1900, 1700, 2200, 2000, 2400, 2300],
+            borderColor: 'rgba(13, 110, 253, 0.8)',
+            backgroundColor: 'rgba(13, 110, 253, 0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 4,
+            pointBackgroundColor: 'rgba(13, 110, 253, 1)',
+            pointHoverRadius: 6,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: { enabled: true }
+          },
+          animation: {
+            duration: 1200,
+            easing: 'easeOutQuart'
+          },
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

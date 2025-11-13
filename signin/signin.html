@@ -8,114 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-    :root {
-      --brand: #00bcd4;
-      --dark: #0f1724
-    }
-
-    body {
-      font-family: 'Montserrat', Arial, sans-serif;
-      background: linear-gradient(180deg, #f6fbfc 0%, #f0f6f7 100%);
-    }
-
-    .signin-wrapper {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem 1rem
-    }
-
-    .card-signin {
-      max-width: 960px;
-      width: 100%;
-      border-radius: 16px;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      box-shadow: 0 20px 60px rgba(12, 24, 36, 0.12);
-      transform: translateY(20px);
-      opacity: 0;
-      animation: fadeInUp 700ms ease forwards
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(24px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
-    }
-
-    .promo {
-      background: linear-gradient(135deg, rgba(0, 188, 212, 0.12), rgba(6, 78, 88, 0.04));
-      padding: 3rem 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 1rem
-    }
-
-    .promo h3 {
-      color: var(--dark);
-      font-weight: 700
-    }
-
-    .promo p {
-      color: #334155
-    }
-
-    .form-side {
-      padding: 2.5rem 2rem;
-      background: #fff
-    }
-
-    .form-side .form-control {
-      border-radius: 10px;
-      border: 1px solid #e6eef0;
-      padding: 1rem
-    }
-
-    .btn-brand {
-      background: var(--brand);
-      border-color: var(--brand)
-    }
-
-    .social-btn {
-      border-radius: 10px
-    }
-
-    .small-muted {
-      color: #6b7280
-    }
-
-    /* Responsive */
-    @media(max-width:767.98px) {
-      .card-signin {
-        grid-template-columns: 1fr;
-      }
-
-      .promo {
-        order: 2;
-        padding: 1.5rem
-      }
-
-      .form-side {
-        order: 1;
-        padding: 1.5rem
-      }
-    }
-
-    /* subtle hover */
-    .card-signin:hover {
-      box-shadow: 0 28px 80px rgba(12, 24, 36, 0.16)
-    }
-  </style>
+  <link rel="stylesheet" href="signin.css">
 </head>
 
 <body>
@@ -160,26 +53,34 @@
       <div class="form-side">
         <h4 class="mb-3">Sign in to your account</h4>
         <p class="small-muted mb-3">Use your email and password or continue with social accounts.</p>
+        <p class="alert alert-danger p-2 text-center text-danger" id="errorMessage" style="display: none;">Please fill
+          in all
+          inputs</p>
+        <p class="alert alert-danger p-2 text-center text-danger" id="errorMessage2" style="display: none;">Account does not exist!</p>
 
         <form id="signinForm" class="mb-3">
           <div class="mb-3">
             <label class="form-label">Email address</label>
-            <input type="email" class="form-control" placeholder="you@example.com" required>
+            <input type="email" class="form-control" placeholder="you@example.com" id="email" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Password</label>
-            <input type="password" class="form-control" placeholder="Your password" required>
+            <input type="password" class="form-control" placeholder="Your password" id="password" required>
           </div>
+
+          <p class="p-2 text-danger" id="errorMessage3" style="display: none; font-size: 10px !important;">Email or Password is incorrect</p>
+
           <div class="d-flex justify-content-between align-items-center mb-3">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="rememberCheck">
+              <input class="form-check-input" type="checkbox" value="" id="termsCheck">
               <label class="form-check-label small-muted" for="rememberCheck">Remember me</label>
             </div>
             <a href="#" class="small-muted">Forgot password?</a>
           </div>
 
-          <div class="d-grid mb-3">
-            <button type="submit" class="btn btn-brand text-white py-2">Sign In</button>
+          <div class="d-grid mb-1">
+            <button onclick="signinPage()" id="btn" type="button" class="btn btn-brand text-white py-2 signup-btn">Sign
+              In</button>
           </div>
         </form>
 
@@ -190,23 +91,14 @@
               class="bi bi-facebook me-2"></i>Facebook</button>
         </div>
 
-        <div class="text-center small">Don't have an account? <a href="../signup/signup.html" class="text-info">Create account</a></div>
+        <div class="text-center small">Don't have an account? <a href="../signup/signup.html" class="text-info">Create
+            account</a></div>
       </div>
     </div>
   </div>
 
-  <script>
-    // small interactive behavior
-    document.getElementById('signinForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      // simple feedback animation
-      const btn = this.querySelector('button[type=submit]');
-      btn.disabled = true; btn.innerText = 'Signing in...';
-      setTimeout(() => { btn.innerText = 'Signed in'; btn.classList.remove('btn-brand'); btn.classList.add('btn-success'); }, 900);
-      setTimeout(() => { window.location.href = 'index.html'; }, 1400);
-    });
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<script src="signin.js"></script>
 
 </html>

@@ -55,7 +55,9 @@
         <p class="alert alert-danger p-2 text-center text-danger" id="errorMessage" style="display: none;">Please fill
           in all
           inputs</p>
-        <p class="alert alert-danger p-2 text-center text-danger" id="errorMessage2" style="display: none;">Invalid Email entered</p>
+        <p class="alert alert-danger p-2 text-center text-danger" id="errorMessage2" style="display: none;">Invalid
+          Email or Password entered</p>
+
         <form id="signupForm" class="mb-3">
           <div class="mb-1">
             <label class="form-label">First Name</label>
@@ -73,13 +75,16 @@
             <label class="form-label">Password</label>
             <input type="password" class="form-control" placeholder="Create a password" id="password">
           </div>
+          <p class="p-2 text-danger" id="errorMessage3" style="display: none; font-size: 10px !important;">Password must
+            contain at
+            leasty one uppercase, one lowercase, one digit, one special character and must be at least 8 characters</p>
           <div class="mb-1 form-check">
             <input type="checkbox" class="form-check-input" id="termsCheck">
             <label class="form-check-label small-muted" for="termsCheck">I agree to the <a href="#"
                 class="text-info">Terms & Privacy</a></label>
           </div>
           <div class="d-grid mb-1">
-            <button type="button" class="btn btn-brand text-white py-2 signup-btn" onclick="signUp()">Sign Up</button>
+            <button id="btn" type="button" class="btn btn-brand text-white py-2 signup-btn" onclick="signUp()">Sign Up</button>
           </div>
         </form>
         <div class="text-center small-muted mb-2">Or continue with</div>

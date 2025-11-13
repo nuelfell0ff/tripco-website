@@ -1,0 +1,117 @@
+/* Custom styles for admin dashboard */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+
+/* Theme variables */
+:root {
+  --bg: #ffffff;
+  --text: #212529;
+  --muted: #6c757d;
+  --card-bg: #ffffff;
+  --sidebar-bg: #f8f9fa;
+  --navbar-bg: #212529;
+  --link-hover: #e9ecef;
+  --card-shadow: rgba(13, 110, 253, 0.08);
+  --accent: #0d6efd;
+}
+
+.dark-mode {
+  --bg: #0b1220;
+  --text: #e9eef8;
+  --muted: #b5c2d6;
+  --card-bg: #0f1724;
+  --sidebar-bg: #0d1522;
+  --navbar-bg: #071021;
+  --link-hover: rgba(255, 255, 255, 0.06);
+  --card-shadow: rgba(0, 0, 0, 0.6);
+  --accent: #4ea8ff;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 240ms ease, color 240ms ease;
+}
+
+.navbar {
+  background-color: var(--navbar-bg) !important;
+  transition: background-color 240ms ease;
+}
+
+.sidebar {
+  min-height: 100vh;
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--sidebar-bg);
+}
+
+.sidebar .nav-link {
+  color: var(--text);
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover {
+  background: var(--link-hover);
+  color: var(--accent);
+}
+
+.sidebar .nav-link i {
+  transition: color 0.2s;
+}
+
+/* Offcanvas sidebar nav for mobile */
+.sidebar-nav .nav-link {
+  color: var(--text);
+  font-weight: 500;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  transition: background 0.2s, color 0.2s;
+}
+
+.sidebar-nav .nav-link.active,
+.sidebar-nav .nav-link:hover {
+  background: var(--link-hover);
+  color: var(--accent);
+}
+
+/* Card and table */
+.card {
+  background: var(--card-bg);
+  color: var(--text);
+  transition: background 240ms ease, color 240ms ease, box-shadow 240ms ease;
+}
+
+.animate__animated {
+  animation-duration: 1s;
+}
+
+.table tbody tr {
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.table tbody tr:hover {
+  box-shadow: 0 2px 8px var(--card-shadow);
+  transform: scale(1.01);
+}
+
+/* Theme toggle button small adjustments */
+#themeToggle {
+  min-width: 42px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 767.98px) {
+  .sidebar {
+    display: none !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+}
